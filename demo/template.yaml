@@ -4,9 +4,9 @@ Description: demo hexagonal Lambda
 
 Globals:
   Function:
-    Timeout: 30
     Runtime: java17
     MemorySize: 512
+    Timeout: 30
 
 Resources:
   ConsultarUsuarioFunction:
@@ -14,10 +14,15 @@ Resources:
     Properties:
       FunctionName: ConsultarUsuarioFunction
       Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
-      CodeUri: .
+      CodeUri: target/demo-0.0.1-SNAPSHOT-aws.jar
       Environment:
         Variables:
+          MAIN_CLASS: com.example.demo.DemoApplication
           SPRING_CLOUD_FUNCTION_DEFINITION: consultarUsuarioFunction
+          SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+          SPRING_JPA_HIBERNATE_DDL_AUTO: none
+          SPRING_JPA_SHOW_SQL: "false"
+          DB_SECRET_NAME: my-db-secret
       Events:
         Api:
           Type: Api
