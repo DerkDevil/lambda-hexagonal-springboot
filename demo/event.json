@@ -1,0 +1,9 @@
+{
+  "body": "{ \"id\": \"123\" }",
+  "resource": "/usuario",
+  "httpMethod": "POST",
+  "isBase64Encoded": false,
+  "headers": {
+    "Content-Type": "application/json"
+  }
+}

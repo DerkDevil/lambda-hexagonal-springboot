@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+  cloud:
+    function:
+      definition: consultarUsuarioFunction
+
+db:
+  secret:
+    name: my-db-secret
