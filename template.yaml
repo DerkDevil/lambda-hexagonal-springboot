@@ -14,7 +14,7 @@ Resources:
     Properties:
       FunctionName: ConsultarUsuarioFunction
       Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
-      CodeUri: target/demo-0.0.1-SNAPSHOT-aws.jar
+      CodeUri: .
       Environment:
         Variables:
           MAIN_CLASS: com.example.demo.DemoApplication

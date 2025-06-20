@@ -114,14 +114,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>repackage</id>
-						<phase>none</phase>
-					</execution>
-				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -129,33 +122,6 @@
 				<configuration>
 					<skipTests>true</skipTests>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.4</version>
-				<executions>
-					<execution>
-						<id>shade-for-lambda</id>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<!-- Evita modificar tu pom original -->
-							<createDependencyReducedPom>false</createDependencyReducedPom>
-							<!-- Adjunta un jar con classifier "aws" -->
-							<shadedArtifactAttached>true</shadedArtifactAttached>
-							<shadedClassifierName>aws</shadedClassifierName>
-							<transformers>
-								<!-- Indica a Lambda cuál es la Main-Class -->
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>org.springframework.cloud.function.adapter.aws.FunctionInvoker</mainClass>
-								</transformer>
-							</transformers>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
