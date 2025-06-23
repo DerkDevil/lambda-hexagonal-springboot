@@ -18,10 +18,12 @@ public class AwsSecretsManager {
         GetSecretValueResponse resp = client.getSecretValue(
                 GetSecretValueRequest.builder().secretId(secretName).build()
         );
+        String payload = resp.secretString();
         try {
-            return mapper.readValue(resp.secretString(), clazz);
+            return mapper.readValue(payload, clazz);
         } catch (Exception e) {
             throw new RuntimeException("Error parsing secret JSON", e);
         }
     }
+
 }

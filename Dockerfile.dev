@@ -1,0 +1,22 @@
+FROM ubuntu:22.04
+
+# 1) Instala JDK, Maven, Python, pip, Docker CLI, curl y unzip
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+      openjdk-17-jdk maven python3 python3-pip docker.io curl unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# 2) Instala AWS CLI, awscli-local y SAM CLI
+RUN pip3 install awscli awscli-local aws-sam-cli
+
+# 3) Crea carpeta /scripts y copia allí tu entrypoint
+RUN mkdir -p /scripts
+COPY scripts/entrypoint.sh /scripts/entrypoint.sh
+COPY scripts/secrets.json  /scripts/secrets.json
+RUN chmod +x /scripts/entrypoint.sh
+RUN chmod +x /scripts/secrets.json
+
+WORKDIR /workspace
+COPY . /workspace
+
+# 4) Usa el script copiado como ENTRYPOINT
+ENTRYPOINT ["/scripts/entrypoint.sh"]
