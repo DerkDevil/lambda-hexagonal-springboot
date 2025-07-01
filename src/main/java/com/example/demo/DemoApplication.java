@@ -6,13 +6,20 @@ import com.example.demo.application.usecases.ConsultarUsuarioUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 
 import java.util.Map;
 import java.util.function.Function;
 
 @SpringBootApplication(
-		exclude = org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration.class
+		scanBasePackages = {
+				"com.example.demo",
+				"org.example.aws"
+		},
+		exclude = DataSourceAutoConfiguration.class
 )
 public class DemoApplication {
 

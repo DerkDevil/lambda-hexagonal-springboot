@@ -1,31 +1,13 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Transform: AWS::Serverless-2016-10-31
-Description: demo hexagonal Lambda
-
-Globals:
-  Function:
-    Runtime: java17
-    MemorySize: 512
-    Timeout: 30
-
 Resources:
   ConsultarUsuarioFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: ConsultarUsuarioFunction
       Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
-      CodeUri: .
+      CodeUri: target/demo-0.0.1-SNAPSHOT-aws.jar
+      Runtime: java17
       Environment:
         Variables:
           MAIN_CLASS: com.example.demo.DemoApplication
           SPRING_CLOUD_FUNCTION_DEFINITION: consultarUsuarioFunction
-          SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
-          SPRING_JPA_HIBERNATE_DDL_AUTO: none
-          SPRING_JPA_SHOW_SQL: "false"
+          AWS_REGION: us-east-1
           DB_SECRET_NAME: my-db-secret
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            Path: /usuario
-            Method: post
